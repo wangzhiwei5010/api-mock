@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--定义日志文件的存储地址,使用绝对路径-->
+    <conversionRule conversionWord="baseLog" converterClass="com.reg.log.JsonLogConverter"/>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <property name="LOG_PATH" value="${LOG_PATH:-./log/mock-api}"/>
+    <springProperty scope="context" name="LOG_LEVEL" source="spring.logback.level"/>
+
+    <!-- Console 输出设置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%yellow(%date{yyyy-MM-dd HH:mm:ss.SSS}) | %cyan(${APP_NAME}) | %magenta(%-5level) | %blue(%thread) | Line:%-3L | %baseLog | %msg%n</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
